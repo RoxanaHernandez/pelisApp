@@ -5,10 +5,7 @@ const descripcion = document.getElementById("descripcion")
 const califi = document.getElementById("califi")
 const enviar = document.querySelector('#enviar')
 
-    
 
-
-    
     
 
 enviar.addEventListener("click", function (event){
@@ -22,7 +19,7 @@ enviar.addEventListener("click", function (event){
     recorrePeli()
     localStorage.setItem("peliculas",JSON.stringify(peliculas));
     
-
+    document.getElementById("formulario").reset()
     event.preventDefault();
     return false;
     
@@ -87,18 +84,3 @@ div.innerHTML = str;
 document.body.appendChild(div);
 
 recorrePeli()
-//function limpiarFormulario() {
-  //  document.getElementById("formulario").reset();
-  //}
-  //<input type="button" onclick="limpiarFormulario()" value="Limpiar formulario">
-  //function limpiarYEnviar() {
-    //limpiarFormulario();
-    //return true;
-  //}
-  //cdnjs libreria
-  /* LINKEA POR URL EL JQUERY Y NO DESCARGA EL ARCHIVO
-  <script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script> */
-  /* slide para que despliegue mi form con jquery callback de fade  animate scrolltop*/
