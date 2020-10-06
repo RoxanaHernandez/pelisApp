@@ -4,7 +4,7 @@ const genre = document.getElementById("genre")
 const descripcion = document.getElementById("descripcion")
 const califi = document.getElementById("califi")
 const enviar = document.querySelector('#enviar')
-
+const formulario = document.getElementById("formulario")
 
     
 
@@ -21,6 +21,7 @@ enviar.addEventListener("click", function (event){
     
     document.getElementById("formulario").reset()
     event.preventDefault();
+    formnulario.reset();
     return false;
     
    
