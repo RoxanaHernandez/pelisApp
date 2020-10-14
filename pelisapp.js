@@ -1,14 +1,36 @@
+
 const agregar = document.getElementById("agregar")
 const title = document.getElementById("title")
 const genre = document.getElementById("genre")
 const descripcion = document.getElementById("descripcion")
 const califi = document.getElementById("califi")
-const enviar = document.querySelector('#enviar')
 const formulario = document.getElementById("formulario")
 
-    
 
-enviar.addEventListener("click", function (event){
+
+//const enviar = document.querySelector('#enviar')
+// enviar.addEventListener("click", function (event){
+//     peliculas.push({
+
+//         titulo: title.value,
+//         genero: genre.value,
+//         descripcion: descripcion.value,
+//         imagen: califi.value
+//     })
+//     recorrePeli()
+//     localStorage.setItem("peliculas",JSON.stringify(peliculas));
+    
+//     document.getElementById("formulario").reset()
+//     event.preventDefault();
+//     formnulario.reset();
+//     return false;
+    
+   
+
+// })
+
+
+$('#enviar').click((event) => {
     peliculas.push({
 
         titulo: title.value,
@@ -28,7 +50,6 @@ enviar.addEventListener("click", function (event){
 
 })
 
-
 var peliculas = [
 
 ]
@@ -42,7 +63,7 @@ function generarHtmlDePeli(peli){
     return `<article class="peliculas">
                 <div class="peliculas-container">
                     <div>
-                        <img class="poster"  ${peli.imagen}>
+                        <img class="poster"  src="${peli.imagen}">
                 
                     </div>
                     <div class="derecha">
@@ -69,6 +90,7 @@ function generarHtmlDePeli(peli){
 }
 
 var div = document.createElement("div");
+var peliculasSection = document.getElementById("peliculas");
 
 
 function recorrePeli() {
@@ -79,9 +101,31 @@ for (var i=0; i<peliculas.length;i++){
 div.innerHTML = str;
 }
 
-
+function dibujarTendencias(tendencias) {
+    var str ="";
+    for (var i=0; i<tendencias.length;i++){
+        str+= generarHtmlDePeli(tendencias[i])
+    };
+    peliculasSection.innerHTML = str;
+}
 
 
 document.body.appendChild(div);
 
 recorrePeli()
+
+// apikey 6d5a2835001bae178b365eb8f7fe37d5 api movies   https://developers.themoviedb.org/3/trending/get-trending
+fetch('https://api.themoviedb.org/3/trending/all/day?api_key=6d5a2835001bae178b365eb8f7fe37d5')
+    .then((response) => response.json())
+    .then((data) => {
+        var arr = []
+        for (var i = 0; i < data.results.length; i ++) {
+            arr.push({
+                titulo: data.results[i].name || data.results[i].title || data.results[i].original_title,
+                imagen: 'https://image.tmdb.org/t/p/original' + data.results[i].poster_path,
+                descripcion: data.results[i].overview
+            })
+        }
+        dibujarTendencias(arr)
+    })
+    .catch((err) => console.log(`Error: ${err}`))
