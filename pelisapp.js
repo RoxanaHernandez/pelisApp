@@ -5,7 +5,13 @@ const genre = document.getElementById("genre")
 const descripcion = document.getElementById("descripcion")
 const califi = document.getElementById("califi")
 const formulario = document.getElementById("formulario")
+const peliculasSection = document.getElementById("peliculas")
 
+const div = document.querySelector('#pelis-nuevas')
+
+var peliculas = [
+
+]
 
 
 //const enviar = document.querySelector('#enviar')
@@ -31,6 +37,7 @@ const formulario = document.getElementById("formulario")
 
 
 $('#enviar').click((event) => {
+    event.preventDefault();
     peliculas.push({
 
         titulo: title.value,
@@ -41,18 +48,19 @@ $('#enviar').click((event) => {
     recorrePeli()
     localStorage.setItem("peliculas",JSON.stringify(peliculas));
     
-    document.getElementById("formulario").reset()
+    //document.getElementById("formulario").reset()
     event.preventDefault();
     formnulario.reset();
     return false;
+    
     
    
 
 })
 
-var peliculas = [
+//var peliculas = [
 
-]
+//]
 
 
 if(localStorage.getItem("peliculas")){
@@ -89,16 +97,19 @@ function generarHtmlDePeli(peli){
             </article>`
 }
 
-var div = document.createElement("div");
-var peliculasSection = document.getElementById("peliculas");
+//var div = document.createElement("div");
+//var peliculasSection = document.getElementById("peliculas");
 
 
 function recorrePeli() {
+   // var div = document.createElement("div");
 var str ="";
 for (var i=0; i<peliculas.length;i++){
-    str+= generarHtmlDePeli(peliculas[i])
+    str += generarHtmlDePeli(peliculas[i])
 };
+
 div.innerHTML = str;
+//document.body.appendChild(div);
 }
 
 function dibujarTendencias(tendencias) {
@@ -110,7 +121,7 @@ function dibujarTendencias(tendencias) {
 }
 
 
-document.body.appendChild(div);
+//document.body.appendChild(div);
 
 recorrePeli()
 
@@ -129,3 +140,19 @@ fetch('https://api.themoviedb.org/3/trending/all/day?api_key=6d5a2835001bae178b3
         dibujarTendencias(arr)
     })
     .catch((err) => console.log(`Error: ${err}`))
+
+    /*function verificar()
+    {
+    var rellenados=true;
+    const fi = document.getElementById("agregar");
+    controles = fi.getElementsByTagName('input');
+    for ( i=0; i<controles.length; i++){
+    control = controles[i];
+    if (control.type == 'text'){
+    if (control.value=="") {
+    rellenados=false;
+    }
+    }
+    }
+    return rellenados;
+    }*/
