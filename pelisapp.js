@@ -67,7 +67,7 @@ if(localStorage.getItem("peliculas")){
     peliculas=JSON.parse(localStorage.getItem("peliculas"))
 }
 
-function generarHtmlDePeli(peli){
+function generarHtmlDePeli(peli, indice ){
     return `<article class="peliculas">
                 <div class="peliculas-container">
                     <div>
@@ -91,7 +91,7 @@ function generarHtmlDePeli(peli){
                     </div>
                     <div class="peliculas-boton">
                         <button>Editar</button>
-                        <button>Eliminar</button>
+                        <button id ='btn-eliminar-${indice}'>Eliminar</button>
                     </div>
                 </div>
             </article>`
@@ -105,10 +105,19 @@ function recorrePeli() {
    // var div = document.createElement("div");
 var str ="";
 for (var i=0; i<peliculas.length;i++){
-    str += generarHtmlDePeli(peliculas[i])
+    str += generarHtmlDePeli(peliculas[i], i)
 };
-
+ var clickFactory = (j) => () => {
+     peliculas.splice(j, 1)
+     recorrePeli()
+     localStorage.setItem("peliculas",JSON.stringify(peliculas));
+ }
 div.innerHTML = str;
+for(var i =0; i<peliculas.length;i++){
+    var btn = document.getElementById(`btn-eliminar-${i}`)
+    btn.addEventListener('click',clickFactory(i))
+}
+
 //document.body.appendChild(div);
 }
 
@@ -118,6 +127,7 @@ function dibujarTendencias(tendencias) {
         str+= generarHtmlDePeli(tendencias[i])
     };
     peliculasSection.innerHTML = str;
+    
 }
 
 
