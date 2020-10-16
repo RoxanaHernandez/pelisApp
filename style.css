@@ -73,7 +73,14 @@ nav ul li{
     margin-left: 20px;
 }
 section{
-    margin: 0 auto;
+    flex-wrap: wrap;
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-start;
+}
+.favo{
+    text-align: center;
+    display: block;
 }
 .poster{
     width: 200px;
@@ -85,7 +92,7 @@ section{
     position: relative;
 }
 .main-container div{
-    display: inline-block;
+    display: display-block;
     text-align: right;
 width: 450px;
 }
